@@ -19,7 +19,7 @@ Este es un proyecto universitario que implementa un CRUD básico para la gestió
 
 ## Tutor
 
-- Nombre del Tutor
+- Alexis Ronael Peralta Franco
 
 ## Tecnologías Utilizadas
 

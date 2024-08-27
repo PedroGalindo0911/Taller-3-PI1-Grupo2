@@ -1,47 +1,35 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import UserTable from './components/UserTable';
-import { users as initialUsers } from './data/users';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
-const App = () => {
-  const [users, setUsers] = useState(initialUsers);
-
-  const createUser = (newUser) => {
-    setUsers([...users, { ...newUser, id: users.length + 1 }]);
-  };
-
-  const updateUser = (updatedUser) => {
-    setUsers(users.map(user => (user.id === updatedUser.id ? updatedUser : user)));
-  };
-
-  const deleteUser = (userId) => {
-    setUsers(users.filter(user => user.id !== userId));
-  };
+function App() {
+  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <Navbar />
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Usuarios</h2>
-          <button
-            onClick={() => {
-              const name = prompt("Ingresa el nombre del usuario:");
-              const email = prompt("Ingresa el correo del usuario:");
-              const role = prompt("Ingresa el rol del usuario:");
-              if (name && email && role) {
-                createUser({ name, email, role });
-              }
-            }}
-            className="bg-black text-white px-4 py-2 rounded"
-          >
-            Crear Usuario
-          </button>
-        </div>
-        <UserTable users={users} onEditUser={updateUser} onDeleteUser={deleteUser} />
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
-    </div>
-  );
-};
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
+}
 
-export default App;
+export default App

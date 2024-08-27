@@ -1,4 +1,3 @@
-App.jsx: import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import UserTable from './components/UserTable';
 import { users as initialUsers } from './data/users';

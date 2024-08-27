@@ -1,4 +1,4 @@
-Navbar.jsx: import React from 'react';
+import React from 'react';
 
 const Navbar = () => {
   return (

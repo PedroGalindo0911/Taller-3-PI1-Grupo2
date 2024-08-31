@@ -1,46 +1,38 @@
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
-const PORT = 5000;
+require('dotenv').config();
+const sequelize = require('./config/dbConnection');
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-let users = [];
+sequelize.authenticate()
+  .then(() => console.log('Conexión a la base de datos exitosa'))
+  .catch(err => console.error('No se pudo conectar a la base de datos:', err));
 
-app.get('/', (req, res) => {
-    res.send('Conectado CRUD API');
-  });  
+app.use('/api/users', require('./routes/userRoutes'));
 
-app.get('/users', (req, res) => {
-  res.json(users);
-});
-
-app.post('/users', (req, res) => {
-  const user = req.body;
-  user.id = users.length + 1;
-  users.push(user);
-  res.status(201).json(user);
-});
-
-app.put('/users/:id', (req, res) => {
-  const { id } = req.params;
-  const userIndex = users.findIndex(u => u.id == id);
-  if (userIndex > -1) {
-    users[userIndex] = { ...users[userIndex], ...req.body };
-    res.json(users[userIndex]);
-  } else {
-    res.status(404).json({ message: 'User not found' });
-  }
-});
-
-app.delete('/users/:id', (req, res) => {
-  const { id } = req.params;
-  users = users.filter(u => u.id != id);
-  res.status(204).end();
-});
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+
+dbConnection.js: const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  dialect: 'mysql',
+  logging: false, 
+});
+
+sequelize.authenticate()
+  .then(() => console.log('Conexión a la base de datos exitosa'))
+  .catch(err => console.error('No se pudo conectar a la base de datos:', err));
+
+module.exports = sequelize;

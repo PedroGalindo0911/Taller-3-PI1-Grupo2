@@ -34,6 +34,19 @@ const App = () => {
       console.error('Error al actualizar el usuario:', error);
     }
   };
+
+  const handleEditUser = (user) => {
+    setEditingUser(user);
+    setName(user.name);
+    setEmail(user.email);
+    setRole(user.role);
+  }
+
+  useEffect(() => {
+    if (editingUser) {
+      updateUser();
+    }
+  }, [editingUser]);
   
   const deleteUser = async (id) => {
     try {
@@ -61,7 +74,6 @@ const App = () => {
       console.error('Error al crear el usuario:', error);
     }
   };
-  
 
   const clearForm = () => {
     setName('');
@@ -83,7 +95,7 @@ const App = () => {
             Crear Usuario
           </button>
         </div>
-        <UserTable users={users} onEditUser={updateUser} onDeleteUser={deleteUser} />
+        <UserTable users={users} onEditUser={handleEditUser} onDeleteUser={deleteUser} />
       </div>
     </div>
   );

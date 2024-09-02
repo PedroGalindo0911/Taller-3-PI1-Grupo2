@@ -11,10 +11,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 sequelize.authenticate()
-  .then(() => console.log('Conexión a la base de datos exitosa'))
+  .then(() => {
+    console.log('Conexión a la base de datos exitosa')
+    return sequelize.sync();
+  })
+  .then(() => console.log('Sincronización de modelos exitosa'))
   .catch(err => console.error('No se pudo conectar a la base de datos:', err));
 
 app.use('/api/users', require('./routes/userRoutes'));
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

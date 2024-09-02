@@ -7,8 +7,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -16,6 +14,9 @@ services:
 
   backend:
     build: ./server
+    depends_on:
+      - db
+    restart: always
     environment:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -25,9 +26,7 @@ services:
       PORT: ${PORT}
     ports:
       - "${PORT}:${PORT}"
-    depends_on:
-      - db
-
+    
   frontend:
     build: ./client
     ports:
@@ -36,4 +35,4 @@ services:
       - backend
 
 volumes:
-  mysql_data:
+  mysql_data: 

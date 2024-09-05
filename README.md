@@ -42,8 +42,8 @@ Este es un proyecto universitario que implementa un CRUD básico para la gestió
 - **Sequelize**: ORM para interactuar con MySQL.
 - **React**: Biblioteca para la construcción de interfaces de usuario.
 - **MySQL**: Sistema de gestión de bases de datos relacional.
-- **Docker**: Plataforma para crear, enviar y ejecutar aplicaciones en contenedores.
-- **Docker Compose**: Herramienta para definir y ejecutar aplicaciones multi-contenedor.
+- **Docker**: Plataforma para crear, enviar y ejecutar aplicaciones en contenedores. Docker permite que las aplicaciones se ejecuten de manera consistente en diferentes entornos al encapsularlas en contenedores.
+- **Docker Compose**: Herramienta para definir y ejecutar aplicaciones multi-contenedor. Permite gestionar contenedores y redes de forma sencilla mediante un archivo de configuración (`docker-compose.yml`).
 
 ## Requisitos Previos
 
@@ -119,20 +119,54 @@ Asegúrate de tener instalados los siguientes programas en tu máquina:
 
 ### Docker y Docker Hub
 
-- **Docker** es utilizado para contenerizar la aplicación, asegurando que se ejecute de manera consistente en diferentes entornos.
-- **Docker Compose** facilita la gestión de los múltiples contenedores del proyecto (base de datos, frontend, backend).
-- La imagen del backend podría ser publicada en **Docker Hub** para su reutilización.
+- **Docker** es una plataforma para crear, enviar y ejecutar aplicaciones dentro de contenedores. Los contenedores permiten que las aplicaciones se ejecuten de manera aislada del entorno host, garantizando que funcionen de la misma manera en diferentes sistemas. 
+- **Docker Compose** facilita la definición y ejecución de aplicaciones multi-contenedor mediante un archivo YAML, simplificando la configuración y el despliegue de los contenedores.
+- **Docker Hub** es un servicio de Docker que proporciona un repositorio centralizado para almacenar y compartir imágenes de Docker. Puedes subir tus propias imágenes a Docker Hub para compartirlas o reutilizarlas.
+
+### Dockerfile
+
+Un **Dockerfile** es un archivo de texto que contiene una serie de instrucciones para construir una imagen de Docker. Define el entorno de ejecución de una aplicación, incluyendo la base de la imagen, las dependencias necesarias, y los comandos para configurar y ejecutar la aplicación.
 
 ## Comandos útiles de Docker
 
-- **Parar y eliminar contenedores y redes**:
-  ```bash
-  docker-compose down
-  ```
+- **Construir una imagen a partir de un Dockerfile**:
+    ```bash
+    docker build -t nombre_imagen:tag .
+    ```
+
+- **Ejecutar un contenedor a partir de una imagen**:
+    ```bash
+    docker run -d -p 8080:80 nombre_imagen
+    ```
+
+- **Listar imágenes disponibles**:
+    ```bash
+    docker images
+    ```
 
 - **Listar contenedores en ejecución**:
     ```bash
     docker ps
+    ```
+
+- **Detener un contenedor en ejecución**:
+    ```bash
+    docker stop nombre_del_contenedor
+    ```
+
+- **Reiniciar un contenedor**:
+    ```bash
+    docker restart nombre_del_contenedor
+    ```
+
+- **Eliminar un contenedor detenido**:
+    ```bash
+    docker rm nombre_del_contenedor
+    ```
+
+- **Eliminar una imagen**:
+    ```bash
+    docker rmi nombre_imagen
     ```
 
 - **Verificar logs del contenedor**:
@@ -143,6 +177,26 @@ Asegúrate de tener instalados los siguientes programas en tu máquina:
 - **Acceder al shell de un contenedor**:
     ```bash
     docker exec -it nombre_del_contenedor /bin/sh
+    ```
+
+- **Iniciar sesión en Docker Hub**:
+    ```bash
+    docker login
+    ```
+
+- **Cerrar sesión de Docker Hub**:
+    ```bash
+    docker logout
+    ```
+
+- **Subir una imagen a Docker Hub**:
+    ```bash
+    docker push nombre_imagen
+    ```
+
+- **Detener y eliminar contenedores y redes**:
+    ```bash
+    docker-compose down
     ```
 
 ## Estructura del Proyecto
@@ -193,4 +247,3 @@ Este proyecto está bajo la Licencia MIT.
 ## Contacto
 
 Para preguntas, contacta a los integrantes del equipo.
-
